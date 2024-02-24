@@ -6,7 +6,6 @@ using Entities.Skills.Bad;
 using Entities.Skills.Good;
 using Level.InitScriptableObjects;
 using Level.InitScriptableObjects.Catchable;
-using Services.PoolObjectSystem.Pool;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -46,12 +45,13 @@ namespace Level
             _policeSpawnTimer += Time.deltaTime;
             CheckTimers();
         }
-
+        
         private void CheckTimers()
         {
             if (_scoreTimer >= 1f)
             {
                 IncreaseGameScore();
+                IncreaseGameDifficulty();
                 _scoreTimer = 0f;
             }
             if (_obstacleSpawnTimer >= _obstacleSpawnInterval)
@@ -66,7 +66,11 @@ namespace Level
             }
             
         }
-
+        private void IncreaseGameDifficulty()
+        {
+            _levelData.GlobalSpeed += 0.1f;
+        }
+        
         private void IncreaseGameScore()
         {
             _levelData.GameScore++;

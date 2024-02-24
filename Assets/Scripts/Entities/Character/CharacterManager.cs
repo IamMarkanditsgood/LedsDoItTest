@@ -12,14 +12,25 @@ namespace Entities.Character
     public class CharacterManager : MonoBehaviour
     {
         [SerializeField] private float _speed = 5f;
-        [SerializeField] private float _health;
+        [SerializeField] private int _health;
         [SerializeField] private float _magnetRadius = 5f;
         [SerializeField] private float _magnetForce = 10f;
         [SerializeField] private int _coins;
         
         private bool _isMagnetUsed;
+        private bool _isNitroUsed;
+        private bool _isShieldUsed;
         private readonly IMovable _mover = new CharacterMover();
         private CatchManager _catchManager = new();
+
+        public int GetCoins()
+        {
+            return _coins;
+        }
+        public int GetHealth()
+        {
+            return _health;
+        }
 
         public event Action OnDead;
 
@@ -43,6 +54,7 @@ namespace Entities.Character
                 UseMagnet();
             }
 
+            CheckTimers();
             CheckIfDead();
         }
 
@@ -61,6 +73,22 @@ namespace Entities.Character
             }
         }
 
+        public void CheckTimers()
+        {
+            
+        }
+        public void RunNitroTimer(float timeOfUse)
+        {
+            
+        }
+        public void RunMagnetTimer(float timeOfUse)
+        {
+            
+        }
+        public void RunShieldTimer(float timeOfUse)
+        {
+            
+        }
         public void ChangeSpeed(int multiplier, bool increase)
         {
             if (multiplier == 0)

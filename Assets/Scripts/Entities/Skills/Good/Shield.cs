@@ -39,6 +39,7 @@ namespace Entities.Character.Skills
         }
         private IEnumerator ActivateNitro(CharacterManager characterManager)
         {
+            characterManager.RunShieldTimer(_timeOfUse);
             characterManager.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             yield return new WaitForSeconds(_timeOfUse);

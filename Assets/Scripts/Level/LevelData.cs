@@ -21,6 +21,29 @@ namespace Level
         [SerializeField] private GameObject _character;
         [SerializeField] private GameObject _road;
 
+        private int _bestScore;
+        private int _characterHealth;
+        private int _characterCoins;
+
+        public int CharacterHealth
+        {
+            get => _characterHealth;
+            set => _characterHealth = value;
+        }
+
+        public int CharacterCoins
+        {
+            get => _characterCoins;
+            set => _characterCoins = value;
+        }
+
+        public int BestScore
+        {
+            get => _bestScore;
+            set => _bestScore = value;
+        }
+
+
         public float GlobalSpeed
         {
             get => _globalSpeed;

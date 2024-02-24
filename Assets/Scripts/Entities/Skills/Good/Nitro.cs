@@ -39,6 +39,7 @@ namespace Entities.Character.Skills
         }
         private IEnumerator ActivateNitro(CharacterManager characterManager)
         {
+            characterManager.RunNitroTimer(_timeOfUse);
             characterManager.ChangeSpeed(_nitroMultiplier, true);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             yield return new WaitForSeconds(_timeOfUse);

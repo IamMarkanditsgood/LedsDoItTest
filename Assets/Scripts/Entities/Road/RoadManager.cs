@@ -21,8 +21,8 @@ namespace Entities.Road
 
         private void Move()
         {
-            float speed = LevelData.instance.GlobalSpeed * _scrollSpeedDivisor;
-            float offset = Time.time * speed;
+            //float speed = LevelData.instance.GlobalSpeed * _scrollSpeedDivisor;
+            float offset = Time.time * LevelData.instance.GlobalSpeed;
             GetComponent<Renderer>().material.mainTextureOffset = new Vector2(0, offset);
         }
     }

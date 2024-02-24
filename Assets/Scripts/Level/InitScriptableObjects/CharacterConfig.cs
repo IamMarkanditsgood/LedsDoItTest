@@ -6,11 +6,11 @@ namespace Level.InitScriptableObjects
     public class CharacterConfig : ScriptableObject
     {
         [SerializeField] private float _movementSpeed;
-        [SerializeField] private float _health;
+        [SerializeField] private int _health;
        
 
         public float MovementSpeed => _movementSpeed;
-        public float Health => _health;
+        public int Health => _health;
       
     }
 }

@@ -133,6 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5078539}
   - component: {fileID: 5078540}
+  - component: {fileID: 5078541}
+  - component: {fileID: 5078542}
   m_Layer: 5
   m_Name: UIManager
   m_TagString: Untagged
@@ -178,9 +180,43 @@ MonoBehaviour:
   _shieldBar: {fileID: 1141862597}
   _scoreText: {fileID: 864790064}
   _startCount: {fileID: 1754401443}
-  _pauseButton: {fileID: 1472885899}
-  _pauseMenu: {fileID: 1735840949}
+  _pauseButton: {fileID: 1472885900}
   _gameOverMenu: {fileID: 474745908}
+  _pauseMenu: {fileID: 1735840949}
+  _uiPauseManager: {fileID: 5078541}
+  _uiGameOverManager: {fileID: 5078542}
+--- !u!114 &5078541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c0a7f31bee4016a33e034694b3290f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _closeButton: {fileID: 15655865}
+  _restartButton: {fileID: 2000227268}
+  _optionsButton: {fileID: 735518330}
+  _exitButton: {fileID: 1131008275}
+--- !u!114 &5078542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5078538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cfe13fa67848c9b650d5b02836ca19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bestScoreText: {fileID: 1009263244}
+  _yourScoreText: {fileID: 392188229}
+  _restartButton: {fileID: 993135138}
+  _exitButton: {fileID: 954435978}
 --- !u!1 &14932487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,7 +1160,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 474745910}
-  - component: {fileID: 474745909}
   m_Layer: 5
   m_Name: GameOverMenu
   m_TagString: Untagged
@@ -1132,23 +1167,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &474745909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474745908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19cfe13fa67848c9b650d5b02836ca19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bestScoreText: {fileID: 1009263244}
-  _yourScoreText: {fileID: 392188229}
-  _closeButton: {fileID: 1667820155}
-  _restartButton: {fileID: 993135137}
-  _exitButton: {fileID: 954435977}
 --- !u!224 &474745910
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1949,6 +1967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelConfig: {fileID: 11400000, guid: dec69c072696b7b49bcb73413ecd4b41, type: 2}
+  _uiLevelManager: {fileID: 5078540}
   _levelData: {fileID: 891538973}
   _sceneManager:
     _obstaclesSpawnPosition:
@@ -2491,7 +2510,7 @@ GameObject:
   - component: {fileID: 1069769769}
   - component: {fileID: 1069769768}
   m_Layer: 5
-  m_Name: Halth
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2898,8 +2917,8 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4580,8 +4599,8 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4654,7 +4673,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1735840951}
-  - component: {fileID: 1735840950}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -4662,22 +4680,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1735840950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735840949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98c0a7f31bee4016a33e034694b3290f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _closeButton: {fileID: 15655864}
-  _restartButton: {fileID: 2000227267}
-  _optionsButton: {fileID: 735518329}
-  _exitButton: {fileID: 1131008274}
 --- !u!224 &1735840951
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4902,8 +4904,8 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
