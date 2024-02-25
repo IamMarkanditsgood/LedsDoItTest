@@ -31,7 +31,7 @@ namespace Entities.Cathcable.Good
         
         private IEnumerator ActivateNitro(CharacterManager characterManager)
         {
-            characterManager.RunSkill(ObstacleTypes.Shield);
+            characterManager.RunSkillInUI(ObstacleTypes.Shield);
             characterManager.SetSprite(CharacterSpriteType.Shield);
             SwitchMagnet(characterManager, true);
             

@@ -10,8 +10,7 @@ namespace Entities.Character
         
         public void Move(GameObject movableObject, float speed,Vector2 direction)
         {
-            Vector2 movement = _inputSystem.GetMoveButtons().normalized;
-            //Vector2 movement = _inputSystem.SimpleInputAxis();
+            Vector2 movement = _inputSystem.GetInputDirection().normalized;
             movableObject.transform.Translate(movement * speed * Time.deltaTime);
         }
     }

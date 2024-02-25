@@ -1,33 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entities.Cathcable;
-using Entities.Character.Skills;
 using Level.InitScriptableObjects;
 using Services.Constants;
 using Services.Interface;
-using UnityEditor;
 using UnityEngine;
 
 namespace Entities.Character
 {
-    
     public class CharacterManager : MonoBehaviour
     {
-        [SerializeField] private float _speed = 5f;
-        [SerializeField] private int _health;
-        [SerializeField] private float _magnetRadius = 5f;
-        [SerializeField] private float _magnetForce = 10f;
         [SerializeField] private int _coins;
-
-        [SerializeField] private bool _isSkillUsed;
+        
+        private int _health;
+        
+        private float _speed = 5f;
+        private float _magnetRadius = 5f;
+        private float _magnetForce = 10f;
+        
+        private bool _isSkillUsed;
         private bool _isMagnetUsed;
         private bool _isShieldUsed;
 
         private Dictionary<CharacterSpriteType, Sprite> _carSprites;
 
-        private readonly IMovable _mover = new CharacterMover();
         private CatchManager _catchManager = new();
+        
+        private readonly IMovable _mover = new CharacterMover();
+        
+        public event Action OnDead;
+        public event Action<ObstacleTypes> OnSkillUse;
 
+        #region Properties
+        
+        public int Coins => _coins;
+
+        public int Health => _health;
         
         public bool IsSkillUsed
         {
@@ -38,38 +46,25 @@ namespace Entities.Character
         {
             set => _isShieldUsed = value;
         }
-        public event Action OnDead;
-        public event Action<ObstacleTypes> OnSkillUse;
-        
-        public int GetCoins()
-        {
-            return _coins;
-        }
-        public int GetHealth()
-        {
-            return _health;
-        }
-
         public bool IsMagnetUsed
         {
-            get => _isMagnetUsed;
             set => _isMagnetUsed = value;
         }
-        
+        #endregion
+
         public void Initialize(CharacterConfig characterConfig)
         {
             _speed = characterConfig.MovementSpeed;
             _health = characterConfig.Health;
             _carSprites = characterConfig.CarSprites;
+            _magnetRadius = characterConfig.MagnetRadius;
+            _magnetForce = characterConfig.MagnetForce;
         }
         
         private void Update()
         {
             _mover.Move(gameObject, _speed, Vector2.zero);
-            if (_isMagnetUsed)
-            {
-                UseMagnet();
-            }
+            UseMagnet();
             CheckIfDead();
         }
 
@@ -87,26 +82,7 @@ namespace Entities.Character
                 }
             }
         }
-        public void SetSprite(CharacterSpriteType characterSpriteType)
-        {
-            Sprite carSprite = _carSprites[characterSpriteType];
-            gameObject.GetComponent<SpriteRenderer>().sprite = carSprite;
-        }
-        public void RunSkill(ObstacleTypes obstacleType)
-        {
-            OnSkillUse?.Invoke(obstacleType);
-        }
         
-        public void ChangeSpeed(int multiplier, bool increase)
-        {
-            if (multiplier == 0)
-            {
-                throw new ArgumentException("Multiplier cannot be zero.", nameof(multiplier));
-            }
-
-            _speed = increase ? _speed * multiplier : _speed / multiplier;
-        }
-
         public void AddCoins(int amount)
         {
             _coins += amount;
@@ -121,6 +97,26 @@ namespace Entities.Character
             _health -= amount;
             _health = Mathf.Max(_health, Const.MinCharacterHealth);
         }
+        
+        public void SetSprite(CharacterSpriteType characterSpriteType)
+        {
+            Sprite carSprite = _carSprites[characterSpriteType];
+            gameObject.GetComponent<SpriteRenderer>().sprite = carSprite;
+        }
+        
+        public void RunSkillInUI(ObstacleTypes obstacleType)
+        {
+            OnSkillUse?.Invoke(obstacleType);
+        }
+        
+        public void ChangeSpeed(int multiplier, bool increase)
+        {
+            if (multiplier == 0)
+            {
+                throw new ArgumentException("Multiplier cannot be zero.", nameof(multiplier));
+            }
+            _speed = increase ? _speed * multiplier : _speed / multiplier;
+        }
 
         private void CheckIfDead()
         {
@@ -129,17 +125,22 @@ namespace Entities.Character
                 OnDead?.Invoke();
             }
         }
+        
         private void UseMagnet()
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _magnetRadius);
-            foreach (Collider2D collider in colliders)
+            if (_isMagnetUsed)
             {
-                if (collider.CompareTag("Coin"))
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _magnetRadius);
+                foreach (Collider2D collider in colliders)
                 {
-                    ApplyMagnetForce(collider.gameObject);
+                    if (collider.CompareTag("Coin"))
+                    {
+                        ApplyMagnetForce(collider.gameObject);
+                    }
                 }
             }
         }
+        
         private void ApplyMagnetForce(GameObject coin)
         {
             Vector2 direction = (Vector2)transform.position - (Vector2)coin.transform.position;

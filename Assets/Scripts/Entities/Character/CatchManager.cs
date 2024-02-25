@@ -2,7 +2,7 @@
 using Entities.Cathcable.BasicClasses;
 using UnityEngine;
 
-namespace Entities.Character.Skills
+namespace Entities.Character
 {
     [Serializable]
     public class CatchManager

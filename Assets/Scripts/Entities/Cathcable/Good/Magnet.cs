@@ -30,7 +30,7 @@ namespace Entities.Cathcable.Good
         private IEnumerator UseMagnet(CharacterManager characterManager)
         {
             SwitchMagnet(characterManager, true);
-            characterManager.RunSkill(ObstacleTypes.Magnet);
+            characterManager.RunSkillInUI(ObstacleTypes.Magnet);
             characterManager.SetSprite(CharacterSpriteType.Magnet);
             
             yield return new WaitForSeconds(timeOfUse);

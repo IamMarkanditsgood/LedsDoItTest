@@ -57,8 +57,8 @@ namespace Level
 
         private void GetCharacterData()
         {
-            _levelData.CharacterCoins = _levelData.Character.GetComponent<CharacterManager>().GetCoins();
-            _levelData.CharacterHealth = _levelData.Character.GetComponent<CharacterManager>().GetHealth();
+            _levelData.CharacterCoins = _levelData.Character.GetComponent<CharacterManager>().Coins;
+            _levelData.CharacterHealth = _levelData.Character.GetComponent<CharacterManager>().Health;
         }
         private void SetUIAmounts()
         {

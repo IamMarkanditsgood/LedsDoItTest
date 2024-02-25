@@ -29,7 +29,7 @@ namespace Entities.Cathcable.Good
         
         private IEnumerator ActivateNitro(CharacterManager characterManager)
         {
-            characterManager.RunSkill(ObstacleTypes.Nitro);
+            characterManager.RunSkillInUI(ObstacleTypes.Nitro);
             characterManager.SetSprite(CharacterSpriteType.Nitro);
             SwitchMagnet(characterManager, true);
             

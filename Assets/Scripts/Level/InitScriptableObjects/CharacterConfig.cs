@@ -11,6 +11,11 @@ namespace Level.InitScriptableObjects
         [SerializeField] private float _movementSpeed;
         [SerializeField] private int _health;
         [SerializeField] private Dictionary<CharacterSpriteType, Sprite> _carSprites;
+        [SerializeField] private float _magnetRadius = 5f;
+        [SerializeField] private float _magnetForce = 10f;
+
+        public float MagnetRadius => _magnetRadius;
+        public float MagnetForce => _magnetForce;
 
         public Dictionary<CharacterSpriteType, Sprite> CarSprites => _carSprites;
 
