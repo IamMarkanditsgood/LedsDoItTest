@@ -110,7 +110,6 @@ namespace UI
 
         private void UpdateSkillBar(Slider bar, float value)
         {
-            //value = Mathf.Clamp01(value);
             bar.value = value;
         }
         public void GameOver(int score, int bestScore)
@@ -136,6 +135,7 @@ namespace UI
         }
         private void ClosePauseManager()
         {
+            PauseSwap();
             _pauseMenu.SetActive(false);
         }
         private void Restart()

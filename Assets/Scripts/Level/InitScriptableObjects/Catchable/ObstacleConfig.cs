@@ -1,5 +1,5 @@
-﻿using Entities.Character.Skills;
-using Entities.Skills;
+﻿using Entities.Cathcable;
+using Entities.Character.Skills;
 using UnityEngine;
 
 namespace Level.InitScriptableObjects

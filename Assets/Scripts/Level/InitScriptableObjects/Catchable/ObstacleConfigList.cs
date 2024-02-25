@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Entities.Skills;
+using Entities.Cathcable;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Entities.Cathcable;
 using Entities.Character.Skills;
-using Entities.Skills;
 using Level.InitScriptableObjects;
 using Services.Constants;
 using Services.Interface;
@@ -77,7 +77,7 @@ namespace Entities.Character
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && !_isShieldUsed)
             {
-                if (other.gameObject.CompareTag("Killer") ||other.gameObject.CompareTag("Barier"))
+                if (other.gameObject.CompareTag("Killer") || other.gameObject.CompareTag("Barier"))
                 {
                     SubtractHealth(Const.MaxCharacterHealth);
                 }

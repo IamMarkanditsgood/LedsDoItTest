@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _basicSceneSpeed: 7
   _scoreTimerAdd: 1
-  _obstacleSpawnInterval: 1
-  _policeSpawnInterval: 2
+  _obstacleSpawnInterval: 4
+  _policeSpawnInterval: 5
   _characterConfig: {fileID: 11400000, guid: c83bf13d74579f941a6cd0af756bba58, type: 2}

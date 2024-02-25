@@ -1,7 +1,6 @@
 using System;
+using Entities.Cathcable;
 using Entities.Character;
-using Entities.Skills;
-using Entities.Skills.Bad;
 using Level.InitScriptableObjects;
 using Services.PoolObjectSystem.Pool;
 using UI;
@@ -21,6 +20,7 @@ namespace Level
 
         private void Awake()
         {
+            Time.timeScale = 1;
             Subscribe();
         }
 
@@ -50,6 +50,7 @@ namespace Level
         
         private void Unsubscribe()
         {
+            
             _levelData.Character.GetComponent<CharacterManager>().OnDead -= EndGame;
             _levelData.Character.GetComponent<CharacterManager>().OnSkillUse -= ShowCharacterSkillBar;
         }
