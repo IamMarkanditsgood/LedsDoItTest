@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Entities.Character.Skills;
+using Entities.Skills;
 using Level.InitScriptableObjects;
 using Services.Constants;
 using Services.Interface;
@@ -16,13 +18,29 @@ namespace Entities.Character
         [SerializeField] private float _magnetRadius = 5f;
         [SerializeField] private float _magnetForce = 10f;
         [SerializeField] private int _coins;
-        
+
+        [SerializeField] private bool _isSkillUsed;
         private bool _isMagnetUsed;
-        private bool _isNitroUsed;
         private bool _isShieldUsed;
+
+        private Dictionary<CharacterSpriteType, Sprite> _carSprites;
+
         private readonly IMovable _mover = new CharacterMover();
         private CatchManager _catchManager = new();
 
+        
+        public bool IsSkillUsed
+        {
+            get => _isSkillUsed;
+            set => _isSkillUsed = value;
+        }
+        public bool IsShieldUsed
+        {
+            set => _isShieldUsed = value;
+        }
+        public event Action OnDead;
+        public event Action<ObstacleTypes> OnSkillUse;
+        
         public int GetCoins()
         {
             return _coins;
@@ -31,8 +49,6 @@ namespace Entities.Character
         {
             return _health;
         }
-
-        public event Action OnDead;
 
         public bool IsMagnetUsed
         {
@@ -44,6 +60,7 @@ namespace Entities.Character
         {
             _speed = characterConfig.MovementSpeed;
             _health = characterConfig.Health;
+            _carSprites = characterConfig.CarSprites;
         }
         
         private void Update()
@@ -53,16 +70,14 @@ namespace Entities.Character
             {
                 UseMagnet();
             }
-
-            CheckTimers();
             CheckIfDead();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && !_isShieldUsed)
             {
-                if (other.gameObject.CompareTag("Killer"))
+                if (other.gameObject.CompareTag("Killer") ||other.gameObject.CompareTag("Barier"))
                 {
                     SubtractHealth(Const.MaxCharacterHealth);
                 }
@@ -72,23 +87,16 @@ namespace Entities.Character
                 }
             }
         }
-
-        public void CheckTimers()
+        public void SetSprite(CharacterSpriteType characterSpriteType)
         {
-            
+            Sprite carSprite = _carSprites[characterSpriteType];
+            gameObject.GetComponent<SpriteRenderer>().sprite = carSprite;
         }
-        public void RunNitroTimer(float timeOfUse)
+        public void RunSkill(ObstacleTypes obstacleType)
         {
-            
+            OnSkillUse?.Invoke(obstacleType);
         }
-        public void RunMagnetTimer(float timeOfUse)
-        {
-            
-        }
-        public void RunShieldTimer(float timeOfUse)
-        {
-            
-        }
+        
         public void ChangeSpeed(int multiplier, bool increase)
         {
             if (multiplier == 0)
@@ -138,7 +146,5 @@ namespace Entities.Character
             coin.GetComponent<Rigidbody2D>().AddForce(direction.normalized * _magnetForce);
 
         }
-
-        
     }
 }

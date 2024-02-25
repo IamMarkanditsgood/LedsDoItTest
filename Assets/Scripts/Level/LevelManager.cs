@@ -1,5 +1,7 @@
 using System;
 using Entities.Character;
+using Entities.Skills;
+using Entities.Skills.Bad;
 using Level.InitScriptableObjects;
 using Services.PoolObjectSystem.Pool;
 using UI;
@@ -43,11 +45,13 @@ namespace Level
         private void Subscribe()
         {
             _levelData.Character.GetComponent<CharacterManager>().OnDead += EndGame;
+            _levelData.Character.GetComponent<CharacterManager>().OnSkillUse += ShowCharacterSkillBar;
         }
         
         private void Unsubscribe()
         {
             _levelData.Character.GetComponent<CharacterManager>().OnDead -= EndGame;
+            _levelData.Character.GetComponent<CharacterManager>().OnSkillUse -= ShowCharacterSkillBar;
         }
 
         private void GetCharacterData()
@@ -78,19 +82,21 @@ namespace Level
             _sceneCreator.Init(_levelConfig,_levelData);
         }
 
-        private void SetNitroBar(float value)
+        private void ShowCharacterSkillBar(ObstacleTypes obstacleTypes)
         {
-            _uiLevelManager.UpdateNitroBar(value);
-        }
-
-        private void SetShieldBar(float value)
-        {
-            _uiLevelManager.UpdateShieldBar(value);
-        }
-
-        private void SetMagnetBar(float value)
-        {
-            _uiLevelManager.UpdateMagnetBar(value);
+            float timeOfUse = _levelData.ObstacleConfigList.ObstacleConfigs[obstacleTypes].TimeOfUse;
+            switch (obstacleTypes)
+            {
+                case ObstacleTypes.Magnet :
+                    _uiLevelManager.ShowMagnetBar(timeOfUse);
+                    break;
+                case  ObstacleTypes.Nitro :
+                    _uiLevelManager.ShowNitroBar(timeOfUse);
+                    break;
+                case ObstacleTypes.Shield :
+                    _uiLevelManager.ShowShieldBar(timeOfUse);
+                    break;
+            }
         }
     }
 }

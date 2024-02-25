@@ -10,12 +10,12 @@ namespace Entities.Skills.PoliceCar
 {
     public class PoliceCar: BasicCharacterHealthThief
     {
-        private readonly ObstacleMover _obstacleMover = new();
+        private readonly EntitiesMover _entitiesMover = new();
         
         private void FixedUpdate()
         {
             float speed = LevelData.instance.GlobalSpeed;
-            _obstacleMover.Move(gameObject,speed,Vector2.up);
+            _entitiesMover.Move(gameObject,speed,Vector2.up);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -24,10 +24,10 @@ namespace Entities.Skills.PoliceCar
             {
                 Destroy(gameObject);
             }
-        }
-
-        public override void Init(ObstacleConfig blockConfig)
-        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && other.gameObject.CompareTag("Barier"))
+            {
+                Destroy(gameObject);
+            }
             
         }
 

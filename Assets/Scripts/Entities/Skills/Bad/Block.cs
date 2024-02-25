@@ -9,24 +9,19 @@ namespace Entities.Skills.Bad
 {
     public class Block : BasicCharacterHealthThief
     {
-        [SerializeField] private ObstacleConfig _obstacleConfig;
-        private readonly ObstacleMover _obstacleMover = new();
+        private readonly EntitiesMover _entitiesMover = new();
         
         private void FixedUpdate()
         {
             float speed = LevelData.instance.GlobalSpeed;
-            _obstacleMover.Move(gameObject,speed,Vector2.down);
+            _entitiesMover.Move(gameObject,speed,Vector2.down);
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && other.gameObject.CompareTag("Killer"))
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && other.gameObject.CompareTag("Barier"))
             {
                 Destroy(gameObject);
             }
-        }
-        public override void Init(ObstacleConfig obstacleConfig)
-        {
-            _obstacleConfig = obstacleConfig;
         }
 
         public override void Use(CharacterManager characterManager)

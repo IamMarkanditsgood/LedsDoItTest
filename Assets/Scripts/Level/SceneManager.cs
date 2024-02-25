@@ -16,9 +16,9 @@ namespace Level
     {
         [SerializeField] private List<Transform> _obstaclesSpawnPosition;
         [SerializeField] private List<Transform> _policeSpawnPosition;
-        [SerializeField] private ObstacleConfigList _obstacleConfigList;
         private LevelData _levelData;
         private float _scoreTimer;
+        private float _scoreTimeAdd;
         private float _obstacleSpawnTimer;
         private float _obstacleSpawnInterval = 15f;
         private float _policeSpawnTimer;
@@ -27,10 +27,8 @@ namespace Level
         public void Init(LevelConfig levelConfig, LevelData levelData)
         {
             _levelData = levelData;
-            _scoreTimer = levelConfig.ScoreTimer;
-            _obstacleSpawnTimer = levelConfig.ObstacleSpawnTimer;
+            _scoreTimeAdd = levelConfig.ScoreTimerAdd;
             _obstacleSpawnInterval = levelConfig.ObstacleSpawnInterval;
-            _policeSpawnTimer = levelConfig.PoliceSpawnTimer;
             _policeSpawnInterval = levelConfig.PoliceSpawnInterval;
         }
 
@@ -48,7 +46,7 @@ namespace Level
         
         private void CheckTimers()
         {
-            if (_scoreTimer >= 1f)
+            if (_scoreTimer >= _scoreTimeAdd)
             {
                 IncreaseGameScore();
                 IncreaseGameDifficulty();
@@ -100,12 +98,13 @@ namespace Level
             Transform randomSpawnPosition = _policeSpawnPosition[randomIndex];
             policeCar.transform.position = randomSpawnPosition.position;
             ObstacleConfig obstacleConfig = GetConfig(ObstacleTypes.PoliceCar);
-            policeCar.GetComponent<Catchable>().Init(obstacleConfig);
+            Catchable script =  policeCar.GetComponent<Catchable>();
+            script.Init(obstacleConfig);
         }
         
         private ObstacleConfig GetConfig(ObstacleTypes type)
         {
-            ObstacleConfig obstacleConfig = _obstacleConfigList.ObstacleConfigs[type];
+            ObstacleConfig obstacleConfig = _levelData.ObstacleConfigList.ObstacleConfigs[type];
             return obstacleConfig;
         }
         
@@ -120,10 +119,12 @@ namespace Level
                     obstacleConfig = GetConfig(ObstacleTypes.Block);
                     break;
                 case ObstacleTypes.Crack:
+                    obstacle.tag = "RoadDefect";
                     obstacle.AddComponent<Crack>();
                     obstacleConfig = GetConfig(ObstacleTypes.Crack);
                     break;
                 case ObstacleTypes.OilPuddle:
+                    obstacle.tag = "RoadDefect";
                     obstacle.AddComponent<OilPuddle>();
                     obstacleConfig = GetConfig(ObstacleTypes.OilPuddle);
                     break;

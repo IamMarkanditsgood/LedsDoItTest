@@ -21,7 +21,6 @@ namespace Level
         [SerializeField] private Transform _catchesContainer;
         [SerializeField] private Transform _policeCarContainer;
         
-        private RoadConfig _roadConfig;
         private CharacterConfig _characterConfig;
         
         private LevelData _levelData;
@@ -29,18 +28,13 @@ namespace Level
         public void Init(LevelConfig levelConfig,LevelData levelData)
         {
             _levelData = levelData;
-            _roadConfig = levelConfig.RoadConfig;
             _characterConfig = levelConfig.CharacterConfig;
+            _levelData.GlobalSpeed = levelConfig.BasicSceneSpeed;
         }
         public void AssembleScene()
         {
-            InitRoad();
             InitCharacter();
             CreateObjectPools();
-        }
-        private void InitRoad()
-        {
-            _levelData.Road.GetComponent<RoadManager>().Init(_roadConfig);
         }
 
         private void InitCharacter()

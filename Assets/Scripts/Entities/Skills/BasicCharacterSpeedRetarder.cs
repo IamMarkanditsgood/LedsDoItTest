@@ -1,12 +1,12 @@
 ﻿using System.Collections;
+using Entities.Character;
 using UnityEngine;
 
-namespace Entities.Character.Skills
+namespace Entities.Skills
 {
     public abstract class BasicCharacterSpeedRetarder : Catchable
     {
-        [SerializeField] private float _timeOfUse = 15f;
-        
+
         protected void SlowDown(CharacterManager characterManager)
         {
             StartCoroutine(ActivateNitro(characterManager));
@@ -14,10 +14,10 @@ namespace Entities.Character.Skills
         
         private IEnumerator ActivateNitro(CharacterManager characterManager)
         {
-            characterManager.ChangeSpeed(2, false);
+            characterManager.ChangeSpeed(amount, false);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            yield return new WaitForSeconds(_timeOfUse);
-            characterManager.ChangeSpeed(2, true);
+            yield return new WaitForSeconds(timeOfUse);
+            characterManager.ChangeSpeed(amount, true);
             Destroy(gameObject);
 
         }

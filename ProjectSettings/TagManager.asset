@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Killer
+  - Magnet
+  - Shield
+  - Coin
+  - Nitro
+  - RoadDefect
+  - Barier
   layers:
   - Default
   - TransparentFX

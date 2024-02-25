@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Entities.Character.Skills.PoliceCar;
+using Entities.Skills;
 using Level;
 using Level.InitScriptableObjects;
 using Unity.VisualScripting;
@@ -10,40 +11,45 @@ namespace Entities.Character.Skills
 {
     public class Nitro : Catchable 
     {
-        [SerializeField] private int _nitroMultiplier = 2;
-        [SerializeField] private float _timeOfUse = 15f;
-        private readonly ObstacleMover _obstacleMover = new();
+        private readonly EntitiesMover _entitiesMover = new();
+        
+        private bool _isInUse;
         
         private void FixedUpdate()
         {
             float speed = LevelData.instance.GlobalSpeed;
-            _obstacleMover.Move(gameObject,speed,Vector2.down);
+            _entitiesMover.Move(gameObject,speed,Vector2.down);
         }
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && other.gameObject.CompareTag("Killer"))
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && other.gameObject.CompareTag("Barier") && !_isInUse)
             {
                 Destroy(gameObject);
             }
         }
         
-        public override void Init(ObstacleConfig obstacleConfig)
-        {
-            
-        }
-        
         public override void Use(CharacterManager characterManager)
         {
-            StartCoroutine(ActivateNitro(characterManager));
+            Debug.Log(characterManager.IsSkillUsed);
+            if (!characterManager.IsSkillUsed)
+            {
+                StartCoroutine(ActivateNitro(characterManager));
+            }
         }
         private IEnumerator ActivateNitro(CharacterManager characterManager)
         {
-            characterManager.RunNitroTimer(_timeOfUse);
-            characterManager.ChangeSpeed(_nitroMultiplier, true);
+            _isInUse = true;
+            characterManager.IsSkillUsed = true;
+            characterManager.RunSkill(ObstacleTypes.Nitro);
+            characterManager.ChangeSpeed(amount, true);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            yield return new WaitForSeconds(_timeOfUse);
-            characterManager.ChangeSpeed(_nitroMultiplier, false);
+            characterManager.SetSprite(CharacterSpriteType.Nitro);
+            yield return new WaitForSeconds(timeOfUse);
+            characterManager.ChangeSpeed(amount, false);
+            characterManager.IsSkillUsed = false;
+            characterManager.SetSprite(CharacterSpriteType.Basic);
+            _isInUse = false;
             Destroy(gameObject);
 
         }

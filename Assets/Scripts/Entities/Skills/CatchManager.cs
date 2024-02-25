@@ -1,4 +1,5 @@
 ﻿using System;
+using Entities.Skills;
 using UnityEngine;
 
 namespace Entities.Character.Skills

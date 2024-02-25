@@ -21,6 +21,10 @@ namespace UI
         [SerializeField] private UIPauseMenu _uiPauseManager;
         [SerializeField] private UIGameOverMenu _uiGameOverManager;
 
+        private Slider _currentSkillBar;
+        private float _currentSkillTimer;
+        private bool _isSkillShowed;
+
         private bool _isPaused = false;
 
         private void Awake()
@@ -28,6 +32,25 @@ namespace UI
             Subscribe();
         }
 
+        private void Update()
+        {
+            if (_isSkillShowed)
+            {
+                _currentSkillTimer -= Time.deltaTime;
+                if (_currentSkillTimer  >= 0)
+                {
+                    UpdateSkillBar(_currentSkillBar, _currentSkillTimer);
+                }
+                else
+                {
+                    _magnetBar.gameObject.SetActive(false);
+                    _shieldBar.gameObject.SetActive(false);
+                    _nitroBar.gameObject.SetActive(false);
+                    _isSkillShowed = false;
+                }
+            }
+        }
+        
         private void OnDestroy()
         {
             Unsubscribe();
@@ -54,24 +77,41 @@ namespace UI
         }
         public void UpdateHealthBar(float healthValue)
         {
-            
             healthValue = Mathf.Clamp01(healthValue);
             _healthBar.value = healthValue;
         }
-        public void UpdateNitroBar(float nitroValue)
+        public void ShowNitroBar(float timeOfUse)
         {
-            nitroValue = Mathf.Clamp01(nitroValue);
-            _nitroBar.value = nitroValue;
+            _nitroBar.maxValue = timeOfUse;
+            _nitroBar.value = timeOfUse;
+            _nitroBar.gameObject.SetActive(true);
+            _currentSkillBar = _nitroBar;
+            _isSkillShowed = true;
+            _currentSkillTimer = timeOfUse;
         }
-        public void UpdateMagnetBar(float magnetValue)
+        public void ShowMagnetBar(float timeOfUse)
         {
-            magnetValue = Mathf.Clamp01(magnetValue);
-            _magnetBar.value = magnetValue;
+            _magnetBar.gameObject.SetActive(true);
+            _magnetBar.maxValue = timeOfUse;
+            _magnetBar.value = timeOfUse;
+            _currentSkillBar = _magnetBar;
+            _isSkillShowed = true;
+            _currentSkillTimer = timeOfUse;
         }
-        public void UpdateShieldBar(float shieldValue)
+        public void ShowShieldBar(float timeOfUse)
         {
-            shieldValue = Mathf.Clamp01(shieldValue);
-            _shieldBar.value = shieldValue;
+            _shieldBar.gameObject.SetActive(true);
+            _shieldBar.value = timeOfUse;
+            _shieldBar.maxValue = timeOfUse;
+            _currentSkillBar = _shieldBar;
+            _isSkillShowed = true;
+            _currentSkillTimer = timeOfUse;
+        }
+
+        private void UpdateSkillBar(Slider bar, float value)
+        {
+            //value = Mathf.Clamp01(value);
+            bar.value = value;
         }
         public void GameOver(int score, int bestScore)
         {

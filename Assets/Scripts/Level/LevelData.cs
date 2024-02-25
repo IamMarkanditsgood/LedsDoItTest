@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using Entities.Road;
 using Level.InitScriptableObjects;
+using Level.InitScriptableObjects.Catchable;
 using Services.PoolObjectSystem.Pool;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -19,7 +22,21 @@ namespace Level
         
         [Header("SceneEntities")]
         [SerializeField] private GameObject _character;
-        [SerializeField] private GameObject _road;
+        
+        [SerializeField] private ObstacleConfigList _obstacleConfigList;
+        [SerializeField] private RoadManager _roadManager;
+
+        public RoadManager RoadManager
+        {
+            get => _roadManager;
+            set => _roadManager = value;
+        }
+
+        public ObstacleConfigList ObstacleConfigList
+        {
+            get => _obstacleConfigList;
+            set => _obstacleConfigList = value;
+        }
 
         private int _bestScore;
         private int _characterHealth;
@@ -72,12 +89,6 @@ namespace Level
         {
             get => _character;
             set => _character = value;
-        }
-
-        public GameObject Road
-        {
-            get => _road;
-            set => _road = value;
         }
 
         private void Awake()

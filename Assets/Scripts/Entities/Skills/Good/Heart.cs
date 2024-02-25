@@ -9,31 +9,25 @@ namespace Entities.Skills.Good
 {
     public class Heart : Catchable
     {
-        [SerializeField] private int _amountOfHeart;
-        private readonly ObstacleMover _obstacleMover = new();
+        private readonly EntitiesMover _entitiesMover = new();
         
         private void FixedUpdate()
         {
             float speed = LevelData.instance.GlobalSpeed;
-            _obstacleMover.Move(gameObject,speed,Vector2.down);
+            _entitiesMover.Move(gameObject,speed,Vector2.down);
         }
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && other.gameObject.CompareTag("Killer"))
+            if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle") && other.gameObject.CompareTag("Barier"))
             {
                 Destroy(gameObject);
             }
         }
-        
-        public override void Init(ObstacleConfig obstacleConfig)
-        {
-            
-        }
-        
+
         public override void Use(CharacterManager characterManager)
         {
-            characterManager.AddHealth(_amountOfHeart);
+            characterManager.AddHealth(amount);
             Destroy(gameObject);
         }
     }

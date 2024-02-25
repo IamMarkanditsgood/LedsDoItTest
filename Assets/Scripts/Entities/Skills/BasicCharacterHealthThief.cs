@@ -1,4 +1,6 @@
-﻿using Services.Constants;
+﻿using Entities.Skills;
+using Level.InitScriptableObjects;
+using Services.Constants;
 using UnityEngine;
 
 namespace Entities.Character.Skills

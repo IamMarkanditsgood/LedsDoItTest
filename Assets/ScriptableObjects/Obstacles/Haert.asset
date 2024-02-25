@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71dada5daa344e18f8ba3769f97149b, type: 3}
-  m_Name: RoadConfig
+  m_Script: {fileID: 11500000, guid: eb3c6904ef09499d9115beac8fe914db, type: 3}
+  m_Name: Haert
   m_EditorClassIdentifier: 
-  _movementSpeedDivisorDivisor: 0.1
+  _type: 5
+  _sprite: {fileID: 759490402, guid: bc882c0132f24f04287a4082becd4309, type: 3}
+  _amount: 25
+  _timeOfUse: 0

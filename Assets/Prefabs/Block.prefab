@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 8426017919052939921}
   m_Layer: 7
   m_Name: Block
-  m_TagString: Killer
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _obstacleConfig: {fileID: 0}
+  amount: 0
+  timeOfUse: 0
 --- !u!1 &8426017919128900006
 GameObject:
   m_ObjectHideFlags: 0
