@@ -10,10 +10,6 @@ namespace Level.InitScriptableObjects.Catchable
     {
         [SerializeField] private Dictionary<ObstacleTypes, ObstacleConfig> _obstacleConfigs;
 
-        public Dictionary<ObstacleTypes, ObstacleConfig> ObstacleConfigs
-        {
-            get => _obstacleConfigs;
-            set => _obstacleConfigs = value;
-        }
+        public Dictionary<ObstacleTypes, ObstacleConfig> ObstacleConfigs => _obstacleConfigs;
     }
 }

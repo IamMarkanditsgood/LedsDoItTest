@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
 using Entities.Character;
-using Entities.Road;
 using Level.InitScriptableObjects;
 using Services.Constants;
-using Services.PoolObjectSystem.Pool;
 using UnityEngine;
-using UnityEngine.Pool;
 
-namespace Level
+namespace Level.SceneManagers
 {
     [Serializable]
     public class SceneCreator
@@ -22,7 +18,6 @@ namespace Level
         [SerializeField] private Transform _policeCarContainer;
         
         private CharacterConfig _characterConfig;
-        
         private LevelData _levelData;
 
         public void Init(LevelConfig levelConfig,LevelData levelData)

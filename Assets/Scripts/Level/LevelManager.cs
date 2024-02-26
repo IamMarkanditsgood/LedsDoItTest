@@ -1,11 +1,9 @@
-using System;
 using Entities.Cathcable;
 using Entities.Character;
 using Level.InitScriptableObjects;
-using Services.PoolObjectSystem.Pool;
+using Level.SceneManagers;
 using UI;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace Level
 {
@@ -60,19 +58,21 @@ namespace Level
             _levelData.CharacterCoins = _levelData.Character.GetComponent<CharacterManager>().Coins;
             _levelData.CharacterHealth = _levelData.Character.GetComponent<CharacterManager>().Health;
         }
+        
         private void SetUIAmounts()
         {
             _uiLevelManager.SetScoreText(_levelData.GameScore);
             _uiLevelManager.UpdateHealthBar(_levelData.CharacterHealth);
             
         }
+        
         private void EndGame()
         {
             if (_levelData.BestScore < _levelData.GameScore)
             {
                 _levelData.BestScore = _levelData.GameScore;
             }
-
+            
             _uiLevelManager.GameOver(_levelData.GameScore,_levelData.BestScore);
             Time.timeScale = 0;
         }

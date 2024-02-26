@@ -2,6 +2,7 @@
 using Entities.Character.Skills.PoliceCar;
 using Level;
 using Level.InitScriptableObjects;
+using Level.InitScriptableObjects.Catchable;
 using UnityEngine;
 
 namespace Entities.Cathcable.BasicClasses

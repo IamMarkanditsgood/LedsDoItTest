@@ -4864,6 +4864,30 @@ PrefabInstance:
       propertyPath: _sceneManager._obstaclesSpawnPosition.Array.data[1]
       value: 
       objectReference: {fileID: 1004413226}
+    - target: {fileID: 787534747574162827, guid: 555202243dd4854428c969f31c71df8c, type: 3}
+      propertyPath: _sceneManager._policeCarCreator._policeSpawnPosition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 787534747574162827, guid: 555202243dd4854428c969f31c71df8c, type: 3}
+      propertyPath: _sceneManager._obstacleCreator._obstaclesSpawnPosition.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 787534747574162827, guid: 555202243dd4854428c969f31c71df8c, type: 3}
+      propertyPath: _sceneManager._policeCarCreator._policeSpawnPosition.Array.data[0]
+      value: 
+      objectReference: {fileID: 496400479}
+    - target: {fileID: 787534747574162827, guid: 555202243dd4854428c969f31c71df8c, type: 3}
+      propertyPath: _sceneManager._policeCarCreator._policeSpawnPosition.Array.data[1]
+      value: 
+      objectReference: {fileID: 412243959}
+    - target: {fileID: 787534747574162827, guid: 555202243dd4854428c969f31c71df8c, type: 3}
+      propertyPath: _sceneManager._obstacleCreator._obstaclesSpawnPosition.Array.data[0]
+      value: 
+      objectReference: {fileID: 423000574}
+    - target: {fileID: 787534747574162827, guid: 555202243dd4854428c969f31c71df8c, type: 3}
+      propertyPath: _sceneManager._obstacleCreator._obstaclesSpawnPosition.Array.data[1]
+      value: 
+      objectReference: {fileID: 1004413226}
     - target: {fileID: 787534747574162828, guid: 555202243dd4854428c969f31c71df8c, type: 3}
       propertyPath: m_RootOrder
       value: 4

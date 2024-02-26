@@ -4,18 +4,12 @@ namespace Services.InputSystem
 {
     public class InputSystem
     {
-        protected const string Horizontal = "Horizontal";
-        protected const string Vertical = "Vertical";
-        private const string MoveButton = "Move";
-        private const string StopButton = "Stop";
-        public Vector2 Axis { get; }
-        
-        public bool IsMove() => SimpleInput.GetButton(MoveButton);
-        public bool IsStop() => SimpleInput.GetButton(StopButton);
+        private const string Horizontal = "Horizontal";
+        private const string Vertical = "Vertical";
 
         public Vector2 GetInputDirection()
         {
-            Vector2 direction = Vector2.zero;
+            Vector2 direction;
             if (Application.platform == RuntimePlatform.WindowsPlayer)
             {
                 direction = GetMoveButtons();
@@ -24,7 +18,11 @@ namespace Services.InputSystem
             {
                 direction = SimpleInputAxis();
             }
-
+            else
+            {
+                direction = GetMoveButtons();
+            }
+            
             return direction;
         }
         private Vector2 SimpleInputAxis() =>

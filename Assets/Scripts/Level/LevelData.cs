@@ -13,6 +13,7 @@ namespace Level
     {
         public static LevelData instance;
         
+        [SerializeField] private ObstacleConfigList _obstacleConfigList;
         [SerializeField] private int _gameScore;
         [SerializeField] private float _globalSpeed;
 
@@ -23,74 +24,38 @@ namespace Level
         [Header("SceneEntities")]
         [SerializeField] private GameObject _character;
         
-        [SerializeField] private ObstacleConfigList _obstacleConfigList;
-        [SerializeField] private RoadManager _roadManager;
-
-        public RoadManager RoadManager
-        {
-            get => _roadManager;
-            set => _roadManager = value;
-        }
-
-        public ObstacleConfigList ObstacleConfigList
-        {
-            get => _obstacleConfigList;
-            set => _obstacleConfigList = value;
-        }
-
         private int _bestScore;
         private int _characterHealth;
         private int _characterCoins;
 
+        public ObstacleConfigList ObstacleConfigList => _obstacleConfigList;
+        public ObjectPool Obstacles => _obstacles;
+        public ObjectPool PoliceCar => _policeCar;
+        public GameObject Character => _character;
+        public int CharacterCoins
+        {
+            set => _characterCoins = value;
+        }
         public int CharacterHealth
         {
             get => _characterHealth;
             set => _characterHealth = value;
         }
-
-        public int CharacterCoins
-        {
-            get => _characterCoins;
-            set => _characterCoins = value;
-        }
-
         public int BestScore
         {
             get => _bestScore;
             set => _bestScore = value;
         }
-
-
         public float GlobalSpeed
         {
             get => _globalSpeed;
             set => _globalSpeed = value;
         }
-        
         public int GameScore
         {
             get => _gameScore;
             set => _gameScore = value;
         }
-
-        public ObjectPool Obstacles
-        {
-            get => _obstacles;
-            set => _obstacles = value;
-        }
-
-        public ObjectPool PoliceCar
-        {
-            get => _policeCar;
-            set => _policeCar = value;
-        }
-
-        public GameObject Character
-        {
-            get => _character;
-            set => _character = value;
-        }
-
         private void Awake()
         {
             instance = this;
