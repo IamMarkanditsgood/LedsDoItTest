@@ -63,7 +63,6 @@ namespace UI
         }
         public void UpdateHealthBar(float healthValue)
         {
-            healthValue = Mathf.Clamp01(healthValue);
             _healthBar.value = healthValue;
         }
         

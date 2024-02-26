@@ -13,7 +13,7 @@ namespace Entities.Character
     {
         [SerializeField] private int _coins;
         
-        private int _health;
+        [SerializeField] private int _health;
         
         private float _speed = 5f;
         private float _magnetRadius = 5f;

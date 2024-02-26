@@ -23,7 +23,7 @@ namespace Entities.Cathcable.BasicClasses
 
         private void SwitchSpeed(CharacterManager characterManager, bool isActive)
         {
-            characterManager.ChangeSpeed(amount, isActive);
+            characterManager.ChangeSpeed(2, isActive);
             gameObject.GetComponent<SpriteRenderer>().enabled = isActive;
         }
     }

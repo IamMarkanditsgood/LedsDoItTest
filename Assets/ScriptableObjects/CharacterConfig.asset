@@ -99,5 +99,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  _movementSpeed: 15
   _health: 100
+  _movementSpeed: 15
+  _magnetRadius: 25
+  _magnetForce: 10

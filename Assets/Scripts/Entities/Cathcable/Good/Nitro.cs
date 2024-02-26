@@ -35,9 +35,9 @@ namespace Entities.Cathcable.Good
             
             yield return new WaitForSeconds(timeOfUse);
             
-            SwitchMagnet(characterManager, false);
             characterManager.ChangeSpeed(amount, false);
             characterManager.SetSprite(CharacterSpriteType.Basic);
+            SwitchMagnet(characterManager, false);
             LevelData.instance.Obstacles.DisableComponent(gameObject);
 
         }

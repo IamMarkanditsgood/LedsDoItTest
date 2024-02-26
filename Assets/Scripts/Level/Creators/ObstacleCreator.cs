@@ -71,7 +71,7 @@ namespace Level.Creators
                     obstacleConfig = GetConfig(ObstacleTypes.OilPuddle);
                     break;
                 case ObstacleTypes.Coins:
-                    obstacle.tag = "Untagged";
+                    obstacle.tag = "Coin";
                     obstacle.AddComponent<Coins>();
                     obstacleConfig = GetConfig(ObstacleTypes.Coins);
                     break;

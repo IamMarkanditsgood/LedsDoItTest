@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3c6904ef09499d9115beac8fe914db, type: 3}
   m_Name: Crack
   m_EditorClassIdentifier: 
-  _type: 1
   _sprite: {fileID: 1841375955, guid: bc882c0132f24f04287a4082becd4309, type: 3}
-  _amount: 2
-  _timeOfUse: 5
+  _amount: 25
+  _timeOfUse: 10
