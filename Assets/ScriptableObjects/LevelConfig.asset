@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d739da6f6642c78157623f5a09cff7, type: 3}
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
+  _characterConfig: {fileID: 11400000, guid: c83bf13d74579f941a6cd0af756bba58, type: 2}
   _basicSceneSpeed: 7
   _scoreTimerAdd: 1
   _obstacleSpawnInterval: 4
   _policeSpawnInterval: 5
-  _characterConfig: {fileID: 11400000, guid: c83bf13d74579f941a6cd0af756bba58, type: 2}
+  _startTimeEnd: 3

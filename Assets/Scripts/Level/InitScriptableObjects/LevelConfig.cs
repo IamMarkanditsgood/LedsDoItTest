@@ -10,11 +10,13 @@ namespace Level.InitScriptableObjects
         [SerializeField] private float _scoreTimerAdd;
         [SerializeField] private float _obstacleSpawnInterval = 15f;
         [SerializeField] private float _policeSpawnInterval = 15f;
+        [SerializeField] private float _startTimeEnd;
 
         public CharacterConfig CharacterConfig => _characterConfig;
         public float PoliceSpawnInterval => _policeSpawnInterval;
         public float ScoreTimerAdd => _scoreTimerAdd;
         public float ObstacleSpawnInterval => _obstacleSpawnInterval;
         public float BasicSceneSpeed => _basicSceneSpeed;
+        public float StartTimeEnd => _startTimeEnd;
     }
 }

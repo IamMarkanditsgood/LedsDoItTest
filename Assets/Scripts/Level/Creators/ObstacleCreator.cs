@@ -91,6 +91,7 @@ namespace Level.Creators
                     obstacleConfig = GetConfig(ObstacleTypes.Nitro);
                     break;
                 case ObstacleTypes.Shield:
+                    obstacle.tag = "Untagged";
                     obstacle.AddComponent<Shield>();
                     obstacleConfig = GetConfig(ObstacleTypes.Shield);
                     break;

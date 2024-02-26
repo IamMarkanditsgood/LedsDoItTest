@@ -28,6 +28,8 @@ namespace Level
         private int _characterHealth;
         private int _characterCoins;
 
+        public bool IsGameStarted { get; set; }
+
         public ObstacleConfigList ObstacleConfigList => _obstacleConfigList;
         public ObjectPool Obstacles => _obstacles;
         public ObjectPool PoliceCar => _policeCar;

@@ -1,3 +1,4 @@
+using System.Globalization;
 using Entities.Cathcable;
 using Entities.Character;
 using Level.InitScriptableObjects;
@@ -15,11 +16,12 @@ namespace Level
         [SerializeField] private LevelData _levelData;
         [SerializeField] private SceneManager _sceneManager;
         [SerializeField] private SceneCreator _sceneCreator;
+        
+        private float _startTimer;
 
         private void Awake()
         {
-            Time.timeScale = 1;
-            Subscribe();
+            Init();
         }
 
         private void Start()
@@ -30,9 +32,16 @@ namespace Level
 
         private void Update()
         {
+            if (!_levelData.IsGameStarted)
+            {
+                StartOfGame();
+                return;
+            }
+            
             _sceneManager.PlayGame();
             GetCharacterData();
             SetUIAmounts();
+            
         }
 
         private void OnDestroy()
@@ -40,6 +49,12 @@ namespace Level
             Unsubscribe();
         }
 
+        private void Init()
+        {
+            Time.timeScale = 1;
+            _startTimer = _levelConfig.StartTimeEnd;
+            Subscribe();
+        }
         private void Subscribe()
         {
             _levelData.Character.GetComponent<CharacterManager>().OnDead += EndGame;
@@ -53,6 +68,19 @@ namespace Level
             _levelData.Character.GetComponent<CharacterManager>().OnSkillUse -= ShowCharacterSkillBar;
         }
 
+        private void StartOfGame()
+        {
+            _startTimer -= Time.deltaTime;
+            if (_startTimer <= 0)
+            {
+                _startTimer = 0;
+                _levelData.IsGameStarted = true;
+                _uiLevelManager.OffStartCount();
+            }
+
+            int value = (int) _startTimer + 1 ;
+            _uiLevelManager.SetStartCount(value.ToString());
+        }
         private void GetCharacterData()
         {
             _levelData.CharacterCoins = _levelData.Character.GetComponent<CharacterManager>().Coins;

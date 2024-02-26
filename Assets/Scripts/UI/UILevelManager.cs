@@ -114,6 +114,11 @@ namespace UI
             _startCount.text = count;
         }
 
+        public void OffStartCount()
+        {
+            _startCount.enabled = false;
+        }
+
         private void IsSkillShowed()
         {
             if (_isSkillShowed)

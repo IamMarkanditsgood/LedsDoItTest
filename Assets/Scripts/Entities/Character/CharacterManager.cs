@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Entities.Cathcable;
+using Level;
 using Level.InitScriptableObjects;
 using Services.Constants;
 using Services.Interface;
@@ -63,9 +64,12 @@ namespace Entities.Character
         
         private void Update()
         {
-            _mover.Move(gameObject, _speed, Vector2.zero);
-            UseMagnet();
-            CheckIfDead();
+            if (LevelData.instance.IsGameStarted)
+            {
+                _mover.Move(gameObject, _speed, Vector2.zero);
+                UseMagnet();
+                CheckIfDead();
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)

@@ -18,11 +18,13 @@ namespace Entities.Road
         
         private IMovable _roadMover = new RoadMover();
         
-        
         private void FixedUpdate()
         {
-            _movementSpeed = _levelData.GlobalSpeed;
-            MoveRoads();
+            if (_levelData.IsGameStarted)
+            {
+                _movementSpeed = _levelData.GlobalSpeed;
+                MoveRoads();
+            }
         }
 
         private void MoveRoads()
