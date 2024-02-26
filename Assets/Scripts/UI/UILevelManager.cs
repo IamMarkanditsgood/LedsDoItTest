@@ -1,5 +1,6 @@
 using System;
 using TMPro;
+using UI.UIPanels;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,8 +25,7 @@ namespace UI
         private Slider _currentSkillBar;
         private float _currentSkillTimer;
         private bool _isSkillShowed;
-
-        private bool _isPaused = false;
+        private bool _isPaused;
 
         private void Awake()
         {
@@ -34,23 +34,9 @@ namespace UI
 
         private void Update()
         {
-            if (_isSkillShowed)
-            {
-                _currentSkillTimer -= Time.deltaTime;
-                if (_currentSkillTimer  >= 0)
-                {
-                    UpdateSkillBar(_currentSkillBar, _currentSkillTimer);
-                }
-                else
-                {
-                    _magnetBar.gameObject.SetActive(false);
-                    _shieldBar.gameObject.SetActive(false);
-                    _nitroBar.gameObject.SetActive(false);
-                    _isSkillShowed = false;
-                }
-            }
+            IsSkillShowed();
         }
-        
+
         private void OnDestroy()
         {
             Unsubscribe();
@@ -80,46 +66,47 @@ namespace UI
             healthValue = Mathf.Clamp01(healthValue);
             _healthBar.value = healthValue;
         }
+        
         public void ShowNitroBar(float timeOfUse)
         {
             _nitroBar.maxValue = timeOfUse;
             _nitroBar.value = timeOfUse;
-            _nitroBar.gameObject.SetActive(true);
-            _currentSkillBar = _nitroBar;
-            _isSkillShowed = true;
             _currentSkillTimer = timeOfUse;
+            _currentSkillBar = _nitroBar;
+            _nitroBar.gameObject.SetActive(true);
+            _isSkillShowed = true;
         }
+        
         public void ShowMagnetBar(float timeOfUse)
         {
             _magnetBar.gameObject.SetActive(true);
             _magnetBar.maxValue = timeOfUse;
             _magnetBar.value = timeOfUse;
+            _currentSkillTimer = timeOfUse;
             _currentSkillBar = _magnetBar;
             _isSkillShowed = true;
-            _currentSkillTimer = timeOfUse;
+            
         }
+        
         public void ShowShieldBar(float timeOfUse)
         {
             _shieldBar.gameObject.SetActive(true);
             _shieldBar.value = timeOfUse;
             _shieldBar.maxValue = timeOfUse;
+            _currentSkillTimer = timeOfUse;
             _currentSkillBar = _shieldBar;
             _isSkillShowed = true;
-            _currentSkillTimer = timeOfUse;
         }
 
-        private void UpdateSkillBar(Slider bar, float value)
-        {
-            bar.value = value;
-        }
         public void GameOver(int score, int bestScore)
         {
             _gameOverMenu.SetActive(true);
             _uiGameOverManager.SetScores(bestScore,score);
         }
+        
         public void SetScoreText(int score)
         {
-            _scoreText.text = "Score: " + score.ToString();
+            _scoreText.text = "Score: " + score;
         }
 
         public void SetStartCount(string count)
@@ -127,23 +114,55 @@ namespace UI
             _startCount.text = count;
         }
 
+        private void IsSkillShowed()
+        {
+            if (_isSkillShowed)
+            {
+                ShowSkill();
+            }
+        }
+
+        private void ShowSkill()
+        {
+            _currentSkillTimer -= Time.deltaTime;
+            if (_currentSkillTimer  >= 0)
+            {
+                UpdateSkillBar(_currentSkillBar, _currentSkillTimer);
+            }
+            else
+            {
+                _magnetBar.gameObject.SetActive(false);
+                _shieldBar.gameObject.SetActive(false);
+                _nitroBar.gameObject.SetActive(false);
+                _isSkillShowed = false;
+            }
+        }
+        
+        private void UpdateSkillBar(Slider bar, float value)
+        {
+            bar.value = value;
+        }
+        
         private void PauseSwap()
         {
             Time.timeScale = _isPaused ? 1 : 0;
             _pauseMenu.SetActive(!_isPaused);
             _isPaused = !_isPaused;
         }
+        
         private void ClosePauseManager()
         {
             PauseSwap();
             _pauseMenu.SetActive(false);
         }
+        
         private void Restart()
         {
             Time.timeScale = 1;
             int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(currentSceneIndex);
         }
+        
         private void Exit()
         {
             Application.Quit();

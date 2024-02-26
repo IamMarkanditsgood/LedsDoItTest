@@ -1,10 +1,9 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.UIPanels
 {
     public class UIGameOverMenu : MonoBehaviour
     {
@@ -39,14 +38,16 @@ namespace UI
 
         public void SetScores(int bestScore, int currentScore)
         {
-            _bestScoreText.text = "Best Score: " + bestScore.ToString();
-            _yourScoreText.text = "Your Score: " + currentScore.ToString();
+            _bestScoreText.text = "Best Score: " + bestScore;
+            _yourScoreText.text = "Your Score: " + currentScore;
         }
-        public void Restart()
+
+        private void Restart()
         {
             OnRestartButton?.Invoke();
         }
-        public void Exit()
+
+        private void Exit()
         {
             OnExitButton?.Invoke();
         }

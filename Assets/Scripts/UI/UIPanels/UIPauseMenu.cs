@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.UIPanels
 {
     public class UIPauseMenu : MonoBehaviour
     {
